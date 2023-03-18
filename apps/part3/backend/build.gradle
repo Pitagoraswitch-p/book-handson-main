@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '3.0.4'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'net.bookdevcontainer.todolist'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+
+    // actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // database
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // session
+    // implementation 'org.springframework.session:spring-session-data-redis'
+    // implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // database
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+    // runtimeOnly 'org.postgresql:postgresql:42.2.5'
+
+    // resilience4j
+    // implementation 'io.github.resilience4j:resilience4j-retry:1.7.1'
+    implementation 'io.github.resilience4j:resilience4j-spring-boot2:2.0.2'
+    implementation 'io.github.resilience4j:resilience4j-reactor:2.0.2'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // application insights
+    implementation 'com.microsoft.azure:applicationinsights-runtime-attach:3.4.10'
+
+    // spring doc
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.apache.httpcomponents:httpclient:4.5.13'
+}
+
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
