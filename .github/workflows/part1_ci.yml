@@ -35,7 +35,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'microsoft'
-          cache: maven
+          cache: gradle
 
       - name: "Unit test"
         working-directory: ./apps/part1
