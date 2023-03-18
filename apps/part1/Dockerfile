@@ -3,8 +3,10 @@ RUN mkdir /project
 COPY . /project
 WORKDIR /project
 RUN gradle build -x test
+RUN ls
 RUN mkdir -p build/libs
 WORKDIR /project/build/libs
+RUN ls
 RUN jar -xf ../*.jar
 
 FROM gcr.io/distroless/java17-debian11
