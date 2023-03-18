@@ -7,10 +7,10 @@ export IMAGE_TAG
 .PHONY: test build docker-build docker-smoke-test docker-smoke-test-with-build
 
 test:
-	mvn --batch-mode test
+	gradle test
 
 build:
-	mvn clean package
+	gradle clean
 
 docker-build:
 	docker compose build --no-cache
