@@ -9,6 +9,7 @@ WORKDIR /project/build/libs
 RUN ls
 RUN jar -xf ./*SNAPSHOT.jar
 RUN ls
+RUN echo ${IMAGE_NAME}:${IMAGE_TAG}
 
 FROM gcr.io/distroless/java17-debian11
 USER nonroot:nonrootg

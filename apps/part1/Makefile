@@ -10,7 +10,7 @@ test:
 	gradle test
 
 build:
-	gradle clean build
+	gradle build
 
 docker-build:
 	docker compose build --no-cache
