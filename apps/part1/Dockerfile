@@ -7,7 +7,7 @@ RUN ls
 RUN mkdir -p build/libs
 WORKDIR /project/build/libs
 RUN ls
-RUN jar -xf ../*.jar
+RUN jar -xf ../*SNAPSHOT.jar
 
 FROM gcr.io/distroless/java17-debian11
 USER nonroot:nonrootg
