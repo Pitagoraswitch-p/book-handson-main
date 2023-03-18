@@ -15,4 +15,3 @@ COPY --from=builder ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=builder ${DEPENDENCY}/BOOT-INF/classes /app
 EXPOSE 8080
 ENTRYPOINT ["java","-cp","app:app/lib/*","hello.Application"]
-b
