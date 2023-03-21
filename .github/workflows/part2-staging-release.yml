@@ -38,8 +38,9 @@ jobs:
       - name: Build & Push image.
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
-          arguments: jib
+          arguments: |
+            build
+            jib
         env:
           ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
           ACR_REPOSITORY: ${{ vars.ACR_REPOSITORY }}
