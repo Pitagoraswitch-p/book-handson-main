@@ -6,9 +6,12 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.validation.Valid;
 
 import net.bookdevcontainer.todolist.service.Task;
 import net.bookdevcontainer.todolist.service.TodoListService;
@@ -70,8 +73,8 @@ public class TodoListController {
   public List<Task> get(HttpServletRequest req, HttpServletResponse res) {
     try {
       return RetryTodoListService.executeCallable(() -> {
-        //return service.queryTasksByUser(req.getSession().getId());
-        return service.queryTasksByUser(GetUserId(req)); //第6章で使用 
+        return service.queryTasksByUser(req.getSession().getId());
+        // return service.queryTasksByUser(GetUserId(req)); //第6章で使用
       });
     } catch (Throwable ex) {
       logger.error("Failed to query Task", ex);
@@ -86,8 +89,8 @@ public class TodoListController {
       HttpServletResponse res) {
     try {
       RetryTodoListService.executeCallable(() -> {
-        // return service.createTask(req.getSession().getId(), HtmlUtils.htmlEscape(form.title()),
-        return service.createTask(GetUserId(req), HtmlUtils.htmlEscape(form.title()), //第6章で使用 
+        return service.createTask(req.getSession().getId(), HtmlUtils.htmlEscape(form.title()),
+        // return service.createTask(GetUserId(req), HtmlUtils.htmlEscape(form.title()), //第6章で使用
              HtmlUtils.htmlEscape(form.memo()), LocalDate.parse(form.dueDate()));
       });
     } catch (DateTimeParseException ex) {
@@ -111,8 +114,8 @@ public class TodoListController {
     int numRow = 0;
     try {
       numRow = RetryTodoListService.executeCallable(() -> {
-        // return service.updateTaskById(req.getSession().getId(), form.id(), HtmlUtils.htmlEscape(form.title()),
-        return service.updateTaskById(GetUserId(req), form.id(), HtmlUtils.htmlEscape(form.title()), //第6章で使用
+        return service.updateTaskById(req.getSession().getId(), form.id(), HtmlUtils.htmlEscape(form.title()),
+        // return service.updateTaskById(GetUserId(req), form.id(), HtmlUtils.htmlEscape(form.title()), //第6章で使用
             HtmlUtils.htmlEscape(form.memo()), TodoStatus.valueOf(form.status().toUpperCase()),
             LocalDate.parse(form.dueDate()));
       });
@@ -142,8 +145,8 @@ public class TodoListController {
     int numRow = 0;
     try {
       numRow = RetryTodoListService.executeCallable(() -> {
-        // return service.deleteTaskById(req.getSession().getId(), form.id());
-        return service.deleteTaskById(GetUserId(req), form.id()); //第6章で使用
+        return service.deleteTaskById(req.getSession().getId(), form.id());
+        // return service.deleteTaskById(GetUserId(req), form.id()); //第6章で使用
       });
     } catch (Throwable ex) {
       logger.error("Failed to delete Task", ex);

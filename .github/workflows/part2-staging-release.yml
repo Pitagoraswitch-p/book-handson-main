@@ -1,0 +1,48 @@
+name: Staging Release(Part2)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths: 'apps/part2/**'
+
+jobs:
+  push_image:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/part2
+    steps:
+      - name: Repository Checkout.
+        uses: actions/checkout@v3
+
+      - name: Azure Login.
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+
+      - name: Setup JDK 17.
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Gradle.
+        uses: gradle/gradle-build-action@v2
+
+      - name: Execute Gradle build.
+        run: ./gradlew build
+
+      - name: Execute Gradle test.
+        run: ./gradlew test
+
+      - name: Execute Gradle Push image
+        run: ./gradlew jib
+        env:
+          ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
+          ACR_REPOSITORY: ${{ vars.ACR_REPOSITORY }}
+          ACR_USERNAME: ${{ vars.ACR_USERNAME }}
+          ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}

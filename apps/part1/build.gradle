@@ -1,8 +1,10 @@
 plugins {
     id 'java'
     id 'idea'
+    id 'groovy'
     id 'org.springframework.boot' version '3.0.4'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.google.cloud.tools.jib' version '3.3.1'
 }
 
 group = 'hello'
@@ -16,6 +18,41 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+// https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin
+jib {
+    from {
+        image = 'eclipse-temurin:17.0.6_10-jre-alpine'
+    }
+//    to {
+//        image = System.getenv('ACR_REGISTRY') + '/' + System.getenv('ACR_REPOSITORY')
+//        tags = [System.getenv('BITBUCKET_BUILD_NUMBER') + '-' + System.getenv('BITBUCKET_COMMIT')]
+//        auth {
+//            username = System.getenv('ACR_USERNAME')
+//            password = System.getenv('ACR_PASSWORD')
+//        }
+//    }
+    to {
+        image = project.properties['ACR_REGISTRY'] + '/' + project.properties['ACR_REPOSITORY']
+        tags = ['v1.0.0-tem_17.0.6_10-jre-alpine.01']
+        auth {
+            username = project.properties['ACR_USERNAME']
+            password = project.properties['ACR_PASSWORD']
+        }
+    }
+    container {
+        ports = ['8080','2222']
+        jvmFlags = [
+                '-Xms512m',
+                '-Xmx512m',
+                '-Dfile.encoding=UTF-8',
+                '-Duser.timezone=Asia/Tokyo',
+                // '-javaagent:applicationinsights-agent-2.6.2.jar',
+                '-XX:StartFlightRecording'
+        ]
+        entrypoint = ['sh','webapp_startup.sh']
+    }
 }
 
 tasks.named('test') {
