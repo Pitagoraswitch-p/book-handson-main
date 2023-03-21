@@ -35,12 +35,16 @@ jobs:
         with:
           gradle-version: 7.6.1
 
-      - name: Build & Push image.
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: |
-            build
-            jib
+      - name: Build & Push image 1.
+        run: gradle build
+        env:
+          ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
+          ACR_REPOSITORY: ${{ vars.ACR_REPOSITORY }}
+          ACR_USERNAME: ${{ vars.ACR_USERNAME }}
+          ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build & Push image 2.
+        run: gradle jib
         env:
           ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
           ACR_REPOSITORY: ${{ vars.ACR_REPOSITORY }}
