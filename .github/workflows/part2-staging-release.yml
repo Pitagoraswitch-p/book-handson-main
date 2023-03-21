@@ -1,4 +1,4 @@
-name: Staging Release(Part2)
+name: Release(Part2)
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
         with:
           gradle-version: 7.6.1
 
-      - name: Build & Push image 1.
+      - name: Gradle build.
         run: gradle build
         env:
           ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
@@ -43,7 +43,7 @@ jobs:
           ACR_USERNAME: ${{ vars.ACR_USERNAME }}
           ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 
-      - name: Build & Push image 2.
+      - name: Gradle Push image.
         run: gradle jib
         env:
           ACR_REGISTRY: ${{ vars.ACR_REGISTRY }}
