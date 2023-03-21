@@ -56,7 +56,7 @@ jib {
     }
     to {
         image = System.getenv('ACR_REGISTRY') + '/' + System.getenv('ACR_REPOSITORY')
-        tags = [System.getenv('BITBUCKET_BUILD_NUMBER') + '-' + System.getenv('BITBUCKET_COMMIT')]
+        tags = [System.getenv('GITHUB_RUN_ID') + '-' + System.getenv('GITHUB_SHA')]
         auth {
             username = System.getenv('ACR_USERNAME')
             password = System.getenv('ACR_PASSWORD')
