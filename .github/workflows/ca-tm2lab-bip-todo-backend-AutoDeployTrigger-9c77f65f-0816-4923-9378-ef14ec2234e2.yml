@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.CATM2LABBIPTODOBACKEND_REGISTRY_PASSWORD }}
 
       - name: Build and push container image to registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           tags: crbiptm2labtest01.azurecr.io/ca-tm2lab-bip-todo-backend:${{ github.sha }}
