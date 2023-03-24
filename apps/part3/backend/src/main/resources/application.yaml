@@ -1,7 +1,8 @@
 # Schedule API のEndpointを指定してください
-# schedule:
-#   api:
-#     url: https://schedule.xxx.japaneast.azurecontainerapps.io/schedule
+schedule:
+  api:
+    url: https://ca-tm2lab-bip-schedule.greenmeadow-db0995ca.japaneast.azurecontainerapps.io/schedule
+    # https://schedule.xxx.japaneast.azurecontainerapps.io/schedule
 
 # # Resilience4j の設定
 # resilience4j:
@@ -41,27 +42,27 @@ spring:
   #   url: jdbc:mysql://xxxx.mysql.database.azure.com:3306/backenddb?serverTimezone=UTC
   #   connectionProperties: useUnicode=true;characterEncoding=utf-8;
   #   password: xxxx
-  jpa:
-    show-sql: 'true'
-    hibernate:
-      ddl-auto: update
-
-  # # インメモリデータベース(H2)で動かすときは以下を有効にしてください
-  # datasource:
-  #   driverClassName: org.h2.Driver
-  #   password: ''
-  #   username: sa
-  #   url: jdbc:h2:mem:testdb
-  # h2:
-  #   console:
-  #     enabled: 'false'
   # jpa:
-  #   properties:
-  #     hibernate:
-  #       dialect: org.hibernate.dialect.H2Dialect
   #   show-sql: 'true'
   #   hibernate:
   #     ddl-auto: update
+
+  # インメモリデータベース(H2)で動かすときは以下を有効にしてください
+  datasource:
+    driverClassName: org.h2.Driver
+    password: ''
+    username: sa
+    url: jdbc:h2:mem:testdb
+  h2:
+    console:
+      enabled: 'false'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
 
 server:
   port: '8080'

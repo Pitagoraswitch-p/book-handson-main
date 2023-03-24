@@ -22,14 +22,14 @@ public class Task {
 
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "duedate")
 	private String duedate;
 
 	@Column(name = "updatedOn")
 	private ZonedDateTime updatedOn;
 
-	public Task(String title, String task, String status,  String duedate, ZonedDateTime updatedOn) {
+	public Task(String title, String task, String status, String duedate, ZonedDateTime updatedOn) {
 		this.title = title;
 		this.task = task;
 		this.status = status;
