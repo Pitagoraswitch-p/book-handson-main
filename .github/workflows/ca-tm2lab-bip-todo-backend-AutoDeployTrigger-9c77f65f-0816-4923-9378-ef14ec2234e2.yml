@@ -4,14 +4,14 @@ name: Trigger auto deployment for ca-tm2lab-bip-todo-backend
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
+    branches:
       [ master ]
     paths:
     - 'apps/part3/backend/DockerFile/**'
     - '.github/workflows/ca-tm2lab-bip-todo-backend-AutoDeployTrigger-9c77f65f-0816-4923-9378-ef14ec2234e2.yml'
 
-  # Allow mannually trigger 
-  workflow_dispatch:      
+  # Allow mannually trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -36,14 +36,14 @@ jobs:
         with:
           push: true
           tags: crbiptm2labtest01.azurecr.io/ca-tm2lab-bip-todo-backend:${{ github.sha }}
-          file: ./apps/part3/backend/DockerFile/Dockerfile
-          context: ./apps/part3/backend/DockerFile/
+          file: ./apps/part3/backend/Dockerfile
+          context: ./apps/part3/backend/
 
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+
     steps:
       - name: Azure Login
         uses: azure/login@v1
