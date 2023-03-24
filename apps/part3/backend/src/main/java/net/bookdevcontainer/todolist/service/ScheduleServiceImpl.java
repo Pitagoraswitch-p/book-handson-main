@@ -10,8 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
 // リトライを設定する場合は次の行を有効化してください
-// import io.github.resilience4j.retry.annotation.Retry;
-
+import io.github.resilience4j.retry.annotation.Retry;
 
 @Slf4j
 @Service
@@ -30,15 +29,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     // リトライを設定する場合は次の行を有効化してください
-    // @Retry(name = "scheduleRetry", fallbackMethod = "retryFallback")
+    @Retry(name = "scheduleRetry", fallbackMethod = "retryFallback")
     public ResponseEntity<String> schedule() {
-        
+
         log.info("Invoke Schedule API:  count= " + i++);
 
         return new ResponseEntity<>(
-            restTemplate.getForObject( API_URL, String.class), 
-            HttpStatus.OK
-            );
+                restTemplate.getForObject(API_URL, String.class),
+                HttpStatus.OK);
     }
 
     public ResponseEntity<String> retryFallback(Throwable t) {
@@ -51,7 +49,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return new ResponseEntity<>("Fallback Execution for for RateLimit", HttpStatus.SERVICE_UNAVAILABLE);
     }
 
-    public ResponseEntity<String>  circuitFallback(Throwable t) {
+    public ResponseEntity<String> circuitFallback(Throwable t) {
         log.error("Fallback Execution for CircuitBreaker, cause - {}", t.toString());
         return new ResponseEntity<>("Fallback Execution for for CircuitBreaker", HttpStatus.SERVICE_UNAVAILABLE);
     }
